@@ -1,0 +1,26 @@
+
+name: Matrix Build Demo
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [14, 16, 18]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: matrix-a170fbc
+        run: echo "Building for version ${{ matrix.version }}"
+
+      - name: Generate build artifact
+        run: echo "Build output for version ${{ matrix.version }}" > output.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-a170fbc-v${{ matrix.version }}
+          path: output.txt
